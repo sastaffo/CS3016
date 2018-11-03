@@ -1,0 +1,34 @@
+
+==================== FINAL INTERFACE ====================
+2018-09-18 11:05:17.5197615 UTC
+
+interface main@main:Ex00 7103
+  interface hash: ed9d6c3d09ca684f4ffdb5dbf7201d5d
+  ABI hash: e4c9f0ce00439ad04b26665d18abe5d4
+  export-list hash: 804ec5c27c9784b6d4a61fa97bae4146
+  orphan hash: 693e9af84d3dfcc71e640e005bdc5e2e
+  flag hash: 74e4015cb7fdea89b233b349d046e5da
+  sig of: Nothing
+  used TH splices: False
+  where
+exports:
+  Ex00.hello
+module dependencies:
+package dependencies: base-4.8.2.0* ghc-prim-0.4.0.0
+                      integer-gmp-1.0.0.0
+orphans: base-4.8.2.0:GHC.Base base-4.8.2.0:GHC.Float
+family instance modules: base-4.8.2.0:Control.Applicative
+                         base-4.8.2.0:Data.Either base-4.8.2.0:Data.Monoid
+                         base-4.8.2.0:Data.Type.Equality base-4.8.2.0:GHC.Generics
+import  -/  base-4.8.2.0:Prelude 694dcaf039efe62df1c44834e2dbd2fb
+17f1b14112892f098a41c84746b1df28
+  hello :: [GHC.Types.Char]
+  {- Unfolding: (GHC.CString.unpackCString# "Hello World :-)"#) -}
+vectorised variables:
+vectorised tycons:
+vectorised reused tycons:
+parallel variables:
+parallel tycons:
+trusted: safe
+require own pkg trusted: False
+
