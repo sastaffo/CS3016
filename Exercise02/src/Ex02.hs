@@ -44,8 +44,6 @@ ins newkey newdata (Br brl brr k d)
     | k >  newkey = Br (ins newkey newdata brl) brr k d
     | k <  newkey = Br brl (ins newkey newdata brr) k d
 
--- ins _ _ _  = error "ins NYI"
-
 
 -- Part 2 : Tree Lookup -------------------------------
 
@@ -53,8 +51,6 @@ ins newkey newdata (Br brl brr k d)
 lkp :: (Monad m, Ord k) => Tree k d -> k -> m d
 
 lkp Nil key = fail("nil")
---lkp Nil key
--- = Nil
 
 lkp (Leaf k d) key
     = if k == key
@@ -66,15 +62,8 @@ lkp (Br brl brr k d) key
          then return d
       else if k > key
               then lkp brl key
-           else if k < key
-                   then lkp brr key
-                else fail("no match")
---lkp (Br brl brr k d) key
--- k == key = d
--- k > key = lkp brl key
--- k < key = lkp brr key
+           else lkp brr key -- k < key
 
-lkp _ _ = error "lkp NYI"
 
 -- Part 3 : Instance of Num for Expr
 
@@ -89,10 +78,41 @@ lkp _ _ = error "lkp NYI"
 -}
 
 instance Num Expr where
-  e1 + e2 = (Add e1 e2)
-  e1 - e2 = Sub e1 e2
-  e1 * e2 = Mul e1 e2
-  negate e = Sub (Val(0.0)) e
-  abs e = Abs e
-  signum e = Sign e
+  e1 + e2 = addex e1 e2
+  e1 - e2 = subex e1 e2
+  e1 * e2 = mulex e1 e2
+  negate e = negex e
+  abs e = absex e
+  signum e = sigex e
   fromInteger i = Val(fromIntegral(i))
+
+addex :: Expr -> Expr -> Expr
+addex (Val n1) (Val n2) = Val (n1+n2)
+addex e1 e2 = Add e1 e2
+
+subex :: Expr -> Expr -> Expr
+subex (Val n1) (Val n2) = Val (n1-n2)
+subex e1 e2 = Sub e1 e2
+
+mulex :: Expr -> Expr -> Expr
+mulex (Val n1) (Val n2) = Val (n1*n2)
+mulex e1 e2 = Mul e1 e2
+
+negex :: Expr -> Expr
+negex (Val n) = Val (0-n)
+negex e = Sub (Val 0.0) e
+
+absex :: Expr -> Expr
+absex (Val n) = Val (abs n)
+absex e = Abs e
+
+sigex :: Expr -> Expr
+sigex (Val n)
+    = if n > 0
+        then (Val 1.0)
+        else if n < 0
+            then (Val (-1.0))
+            else (Val 0.0)
+sigex e = Sign e
+
+-- end
